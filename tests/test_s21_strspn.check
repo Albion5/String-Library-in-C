@@ -1,0 +1,21 @@
+#suite s21_strspn_suite
+
+#test s21_strspn_test_1
+char test_str[] = "0123456789";
+char test_sym[] = "210";
+ck_assert_uint_eq(strspn(test_str, test_sym), s21_strspn(test_str, test_sym));
+
+#test s21_strspn_test_2
+char test_str[] = "This is a test!";
+char test_sym[] = " !-";
+ck_assert_uint_eq(strspn(test_str, test_sym), s21_strspn(test_str, test_sym));
+
+#test s21_strspn_test_3
+char test_str[] = "This is a test!";
+char test_sym[] = "This is a test!";
+ck_assert_uint_eq(strspn(test_str, test_sym), s21_strspn(test_str, test_sym));
+
+#test s21_strspn_test_4
+char test_str[] = "Th---is is-a test!";
+char test_sym[] = "";
+ck_assert_uint_eq(strspn(test_str, test_sym), s21_strspn(test_str, test_sym));

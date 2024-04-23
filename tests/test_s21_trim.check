@@ -1,0 +1,80 @@
+#suite s21_trim_suite
+
+#test s21_trim_test_1
+char test_src[] = "!@!@!Test string.!@@@!!@";
+char test_trim_chars[] = "@!";
+char test_exp_res[] = "Test string.";
+char *test_fact_res = s21_trim(test_src, test_trim_chars);
+ck_assert_str_eq(test_fact_res, test_exp_res);
+if (test_fact_res) {
+  free(test_fact_res);
+}
+
+#test s21_trim_test_2
+char test_src[] = "oGive to everyone! o ";
+char test_trim_chars[] = "coins ";
+char test_exp_res[] = "Give to everyone!";
+char *test_fact_res = s21_trim(test_src, test_trim_chars);
+ck_assert_str_eq(test_fact_res, test_exp_res);
+if (test_fact_res) {
+  free(test_fact_res);
+}
+
+#test s21_trim_test_3
+char test_src[] = " coins to everyone! ";
+char test_trim_chars[] = "Give ";
+char test_exp_res[] = "coins to everyone!";
+char *test_fact_res = s21_trim(test_src, test_trim_chars);
+ck_assert_str_eq(test_fact_res, test_exp_res);
+if (test_fact_res) {
+  free(test_fact_res);
+}
+
+#test s21_trim_test_4
+char test_src[] = "Give coins to everyone!";
+char test_trim_chars[] = "";
+char test_exp_res[] = "Give coins to everyone!";
+char *test_fact_res = s21_trim(test_src, test_trim_chars);
+ck_assert_str_eq(test_fact_res, test_exp_res);
+if (test_fact_res) {
+  free(test_fact_res);
+}
+
+#test s21_trim_test_5
+char test_src[] = "";
+char test_trim_chars[] = "\tCoins!";
+char *test_fact_res = s21_trim(test_src, test_trim_chars);
+ck_assert_str_eq(test_fact_res, test_src);
+if (test_fact_res) {
+  free(test_fact_res);
+}
+
+#test s21_trim_test_6
+char test_src[] = "\tCoins!";
+char test_trim_chars[] = "\tCoins!";
+char test_exp_res[] = "";
+char *test_fact_res = s21_trim(test_src, test_trim_chars);
+ck_assert_str_eq(test_fact_res, test_exp_res);
+if (test_fact_res) {
+  free(test_fact_res);
+}
+
+#test s21_trim_test_7
+char test_src[] = "Coins!Coins!Coins!";
+char test_trim_chars[] = "Coins!\0Coins!";
+char test_exp_res[] = "";
+char *test_fact_res = s21_trim(test_src, test_trim_chars);
+ck_assert_str_eq(test_fact_res, test_exp_res);
+if (test_fact_res) {
+  free(test_fact_res);
+}
+
+#test s21_trim_test_8
+char test_src[] = "He successfully completed 0 projects";
+char test_trim_chars[] = "et15sH";
+char test_exp_res[] = " successfully completed 0 projec";
+char *test_fact_res = s21_trim(test_src, test_trim_chars);
+ck_assert_str_eq(test_fact_res, test_exp_res);
+if (test_fact_res) {
+  free(test_fact_res);
+}

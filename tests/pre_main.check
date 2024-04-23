@@ -1,0 +1,2 @@
+#main-pre
+srunner_set_fork_status(sr, CK_NOFORK);

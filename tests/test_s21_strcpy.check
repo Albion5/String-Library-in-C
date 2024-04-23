@@ -1,0 +1,36 @@
+#suite s21_strcpy_suite
+
+#test s21_strcpy_test_1
+char test_str[100] = "This is going to be a very ";
+char test_source[] = "long string containing 0123456789, -?!.";
+char *test_fact_res = s21_strcpy(test_str, test_source);
+ck_assert_str_eq(test_fact_res, test_source);
+ck_assert_ptr_eq(test_fact_res, test_str);
+
+#test s21_strcpy_test_2
+char test_str[100] = "long string containing 0123456789, -?!.";
+char test_source[] = "This is going to be a very ";
+char *test_fact_res = s21_strcpy(test_str, test_source);
+ck_assert_str_eq(test_fact_res, test_source);
+ck_assert_ptr_eq(test_fact_res, test_str);
+
+#test s21_strcpy_test_3
+char test_str[100] = "";
+char test_source[] = "SPARTA!";
+char *test_fact_res = s21_strcpy(test_str, test_source);
+ck_assert_str_eq(test_fact_res, test_source);
+ck_assert_ptr_eq(test_fact_res, test_str);
+
+#test s21_strcpy_test_4
+char test_str[100] = "CAT&&GREP";
+char test_source[] = "";
+char *test_fact_res = s21_strcpy(test_str, test_source);
+ck_assert_str_eq(test_fact_res, test_source);
+ck_assert_ptr_eq(test_fact_res, test_str);
+
+#test s21_strcpy_test_5
+char test_str[100] = "";
+char test_source[] = "";
+char *test_fact_res = s21_strcpy(test_str, test_source);
+ck_assert_str_eq(test_fact_res, test_source);
+ck_assert_ptr_eq(test_fact_res, test_str);

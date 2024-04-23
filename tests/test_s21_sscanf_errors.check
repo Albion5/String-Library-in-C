@@ -1,0 +1,106 @@
+#suite s21_sscanf_errors_suite
+
+#test s21_sscanf_errors_1
+char format[] = "aaaaa%*4c %d";
+char str[] = "aaaaa 123";
+int d1 = 3, d2 = 3;
+
+int res1 = s21_sscanf(str, format, &d1);
+int res2 = sscanf(str, format, &d2);
+
+ck_assert_int_eq(res1, res2);
+ck_assert_int_eq(d1, d2);
+
+#test s21_sscanf_errors_2
+char format[] = "aaabb%*d%c";
+char str[] = "aaaaa 123";
+char c1 = '?', c2 = '?';
+int res1 = s21_sscanf(str, format, &c1);
+int res2 = sscanf(str, format, &c2);
+
+ck_assert_int_eq(res1, res2);
+ck_assert_int_eq(c1, c2);
+
+#test s21_sscanf_errors_3
+char format[] = "aaabb%*md%c";
+char str[] = "aaaaa 123";
+char c1 = '?';
+int res1 = s21_sscanf(str, format, &c1);
+ck_assert_int_eq(res1, -1);
+ck_assert_int_eq(c1, '?');
+
+#test s21_sscanf__errors_4
+char format[] = "aaabb%*d%c";
+char str[] = "";
+char c1 = '?', c2 = '?';
+int res1 = s21_sscanf(str, format, &c1);
+int res2 = sscanf(str, format, &c2);
+ck_assert_int_eq(res1, res2);
+ck_assert_int_eq(c1, c2);
+
+
+#test s21_sscanf_errors_5
+char fstr[] = "%d";
+char str[] = "        ";
+int res1 = s21_sscanf(str, fstr, 0);
+int res2 = sscanf(str, fstr, 100);
+ck_assert_int_eq(res1, res2);
+
+
+#test s21_sscanf_errors_6
+char fstr[] = "%d";
+char str[] = "";
+int a1 = 0, a2 = 0;
+int res1 = s21_sscanf(str, fstr, &a1);
+int res2 = sscanf(str, fstr, &a2);
+ck_assert_int_eq(res1, res2);
+
+
+#test s21_sscanf_errors_7
+char fstr[] = "%%n";
+char str[] = "%";
+int a1 = 0, a2 = 0;
+
+int res1 = s21_sscanf(str, fstr, &a1);
+int res2 = sscanf(str, fstr, &a2);
+ck_assert_int_eq(res1, res2);
+
+#test s21_sscanf_errors_8
+char format[] = "%*d%c";
+char str[] = "12";
+char c1 = '?', c2 = '?';
+int res1 = s21_sscanf(str, format, &c1);
+int res2 = sscanf(str, format, &c2);
+ck_assert_int_eq(res1, res2);
+ck_assert_int_eq(c1, c2);
+
+
+#test s21_sscanf_errors_9
+char format[] = "%*d%n%n";
+char str[] = "12";
+int n1 = 200, n2 = 200, n3 = 100, n4 = 100;
+int res1 = s21_sscanf(str, format, &n1, &n2);
+int res2 = sscanf(str, format, &n3, &n4);
+ck_assert_int_eq(res1, res2);
+ck_assert_int_eq(n1, n3);
+ck_assert_int_eq(n2, n4);
+
+#test s21_sscanf_errors_10
+char fstr[] = "%% %%nb%c%n";
+char str[] = "%%nx";
+int c1 ='?', c2 = '?', n1 = 98, n2 = 98;
+int res1 = s21_sscanf(str, fstr, &c1, &n1);
+int res2 = sscanf(str, fstr, &c2, &n2);
+ck_assert_int_eq(res1, res2);
+ck_assert_int_eq(c1, c2);
+ck_assert_int_eq(n1, n2);
+
+#test s21_sscanf_errors_11
+char fstr[] = "%s%%abcdef";
+char str[] = "string %abc";
+char s1[100] = "";
+char s2[100] = "";
+int res1 = s21_sscanf(str, fstr, s1);
+int res2 = sscanf(str, fstr, s2);
+ck_assert_int_eq(res1, res2);
+ck_assert_str_eq(s1, s2);

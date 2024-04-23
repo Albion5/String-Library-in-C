@@ -1,0 +1,87 @@
+#suite s21_insert_suite
+
+#test s21_insert_test_1
+char test_str[100] = "Give coins";
+char test_source[] = " to everyone!";
+char test_exp_res[] = "Give coins to everyone!";
+s21_size_t n = 10;
+char *test_fact_res = s21_insert(test_str, test_source, n);
+ck_assert_str_eq(test_fact_res, test_exp_res);
+if (test_fact_res) {
+  free(test_fact_res);
+}
+
+#test s21_insert_test_2
+char test_str[100] = "Give to everyone!";
+char test_source[] = "coins ";
+char test_exp_res[] = "Give coins to everyone!";
+s21_size_t n = 5;
+char *test_fact_res = s21_insert(test_str, test_source, n);
+ck_assert_str_eq(test_fact_res, test_exp_res);
+if (test_fact_res) {
+  free(test_fact_res);
+}
+
+#test s21_insert_test_3
+char test_str[100] = "coins to everyone!";
+char test_source[] = "Give ";
+char test_exp_res[] = "Give coins to everyone!";
+s21_size_t n = 0;
+char *test_fact_res = s21_insert(test_str, test_source, n);
+ck_assert_str_eq(test_fact_res, test_exp_res);
+if (test_fact_res) {
+  free(test_fact_res);
+}
+
+#test s21_insert_test_4
+char test_str[100] = "Give coins to everyone!";
+char test_source[] = "";
+char test_exp_res[] = "Give coins to everyone!";
+s21_size_t n = 6;
+char *test_fact_res = s21_insert(test_str, test_source, n);
+ck_assert_str_eq(test_fact_res, test_exp_res);
+if (test_fact_res) {
+  free(test_fact_res);
+}
+
+#test s21_insert_test_5
+char test_str[100] = "";
+char test_source[] = "\tCoins!";
+s21_size_t n = 0;
+char *test_fact_res = s21_insert(test_str, test_source, n);
+ck_assert_str_eq(test_fact_res, test_source);
+if (test_fact_res) {
+  free(test_fact_res);
+}
+
+#test s21_insert_test_6
+char test_str[100] = "\tCoins!";
+char test_source[] = "\tCoins!";
+s21_size_t n = -7;
+char *test_fact_res = s21_insert(test_str, test_source, n);
+ck_assert_ptr_eq(test_fact_res, s21_NULL);
+if (test_fact_res) {
+  free(test_fact_res);
+}
+
+#test s21_insert_test_7
+char test_str[100] = "Coins!";
+char test_source[] = "Coins!\0Coins!";
+char test_exp_res[] = "Coins!Coins!";
+s21_size_t n = 6;
+char *test_fact_res = s21_insert(test_str, test_source, n);
+ck_assert_str_eq(test_fact_res, test_exp_res);
+if (test_fact_res) {
+  free(test_fact_res);
+}
+
+#test s21_insert_test_8
+char test_str[100] = "He successfully completed 0 projects";
+char test_source[] = "15";
+char test_exp_res[] = "He successfully completed 150 projects";
+s21_size_t n = 26;
+char *test_fact_res = s21_insert(test_str, test_source, n);
+ck_assert_str_eq(test_fact_res, test_exp_res);
+if (test_fact_res) {
+  free(test_fact_res);
+}

@@ -1,0 +1,49 @@
+#suite s21_memset_suite
+
+#test s21_memset_test_1
+char test_str1[] = "abcdefg";
+char test_char = 'x';
+int n = 5;
+char test_str2[] = "xxxxx";
+s21_memset(test_str1, test_char, n);
+ck_assert_int_eq(s21_memcmp(test_str1, test_str2, n), 0);
+
+#test s21_memset_test_2
+char test_str1[] = "abcdefg";
+char test_char = 'x';
+int n = 2;
+char test_str2[] = "xx";
+s21_memset(test_str1, test_char, n);
+ck_assert_int_eq(s21_memcmp(test_str1, test_str2, n), 0);
+
+#test s21_memset_test_3
+char test_str1[] = "abcdefg";
+char test_char = 'z';
+int n = 7;
+char test_str2[] = "zzzzzzz";
+s21_memset(test_str1, test_char, n);
+ck_assert_int_eq(s21_memcmp(test_str1, test_str2, n), 0);
+
+#test s21_memset_test_4
+char test_str1[] = "abcdefg";
+char test_char = 'x';
+int n = 0;
+char test_str2[] = "xxxxx";
+s21_memset(test_str1, test_char, n);
+ck_assert_int_eq(s21_memcmp(test_str1, test_str2, n), 0);
+
+#test s21_memset_test_5
+char test_str1[] = "abcdefg";
+char test_char = 'x';
+int n = 8;
+char test_str2[] = "xxxxxxxx";
+s21_memset(test_str1, test_char, n);
+ck_assert_int_eq(s21_memcmp(test_str1, test_str2, n), 0);
+
+#test s21_memset_test_6
+char test_str1[] = "abcdefg";
+char test_char = 'b';
+int n = 1;
+char test_str2[] = "baaaa";
+s21_memset(test_str1, test_char, n);
+ck_assert_int_eq(s21_memcmp(test_str1, test_str2, n), 0);

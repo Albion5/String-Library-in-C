@@ -1,0 +1,77 @@
+#suite s21_strncmp_suite
+
+#test s21_strncmp_test_1
+char test_str1[] =
+    "This is going to be a very long string containing 0123456789, -?!.";
+char test_str2[] =
+    "This is going to be a very long string containing 0123456789, -?!.";
+s21_size_t n = 100;
+ck_assert_int_eq(strncmp(test_str1, test_str2, n),
+                 s21_strncmp(test_str1, test_str2, n));
+
+#test s21_strncmp_test_2
+char test_str1[] =
+    "This is going to be a very long string containing 0123456789, -?!.";
+char test_str2[] =
+    "This is going to be a very long string containing 0123456789, -?!.";
+s21_size_t n = 5;
+ck_assert_int_eq(strncmp(test_str1, test_str2, n),
+                 s21_strncmp(test_str1, test_str2, n));
+
+#test s21_strncmp_test_3
+char test_str1[] =
+    "This is going to be a very long string containing 0123456789, -?!.";
+char test_str2[] = "This 234#$#$";
+s21_size_t n = 4;
+ck_assert_int_eq(strncmp(test_str1, test_str2, n),
+                 s21_strncmp(test_str1, test_str2, n));
+
+#test s21_strncmp_test_4
+char test_str1[] =
+    "This is going to be a very long string containing 0123456789, -?!.";
+char test_str2[] = "dskfljldsfjhgsdfg";
+s21_size_t n = 0;
+ck_assert_int_eq(strncmp(test_str1, test_str2, n),
+                 s21_strncmp(test_str1, test_str2, n));
+
+#test s21_strncmp_test_5
+char test_str1[] = "A";
+char test_str2[] = "Abc";
+s21_size_t n = 3;
+ck_assert_int_lt(s21_strncmp(test_str1, test_str2, n), 0);
+
+#test s21_strncmp_test_6
+char test_str1[] = "A";
+char test_str2[] = "Abc";
+s21_size_t n = 5;
+ck_assert_int_lt(s21_strncmp(test_str1, test_str2, n), 0);
+
+#test s21_strncmp_test_7
+char test_str1[] = "A";
+char test_str2[] = "Abc";
+s21_size_t n = 1;
+ck_assert_int_eq(s21_strncmp(test_str1, test_str2, n), 0);
+
+#test s21_strncmp_test_8
+char test_str1[] = "NOT";
+char test_str2[] = "N";
+s21_size_t n = 5;
+ck_assert_int_gt(s21_strncmp(test_str1, test_str2, n), 0);
+
+#test s21_strncmp_test_9
+char test_str1[] = "NOT";
+char test_str2[] = "N";
+s21_size_t n = 1;
+ck_assert_int_eq(s21_strncmp(test_str1, test_str2, n), 0);
+
+#test s21_strncmp_test_10
+char test_str1[] = "";
+char test_str2[] = "N";
+s21_size_t n = 1;
+ck_assert_int_lt(s21_strncmp(test_str1, test_str2, n), 0);
+
+#test s21_strncmp_test_11
+char test_str1[] = "";
+char test_str2[] = "N";
+s21_size_t n = 0;
+ck_assert_int_eq(s21_strncmp(test_str1, test_str2, n), 0);

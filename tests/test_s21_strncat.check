@@ -1,0 +1,62 @@
+#suite s21_strncat_suite
+
+#test s21_strncat_test_1
+char test_str1[100] = "This is going to be a very ";
+char test_str2[100] = "This is going to be a very ";
+char test_str3[] = "long string containing 0123456789, -?!.";
+char test_str4[] =
+    "This is going to be a very long string containing 0123456789, -?!.";
+s21_size_t n = 100;
+ck_assert_str_eq(s21_strncat(test_str1, test_str3, n), test_str4);
+ck_assert_str_eq(test_str1, strncat(test_str2, test_str3, n));
+ck_assert_int_eq(s21_strlen(test_str1), strlen(test_str2));
+
+#test s21_strncat_test_2
+char test_str1[100] = "This is going to be a very";
+char test_str2[100] = "This is going to be a very";
+char test_str3[] = "";
+char test_str4[] = "This is going to be a very";
+s21_size_t n = 5;
+ck_assert_str_eq(s21_strncat(test_str1, test_str3, n), test_str4);
+ck_assert_str_eq(test_str1, strncat(test_str2, test_str3, n));
+ck_assert_int_eq(s21_strlen(test_str1), strlen(test_str2));
+
+#test s21_strncat_test_3
+char test_str1[100] = "";
+char test_str2[100] = "";
+char test_str3[] = "This is going to be a very";
+char test_str4[] = "This i";
+s21_size_t n = 6;
+ck_assert_str_eq(s21_strncat(test_str1, test_str3, n), test_str4);
+ck_assert_str_eq(test_str1, strncat(test_str2, test_str3, n));
+ck_assert_int_eq(s21_strlen(test_str1), strlen(test_str2));
+
+#test s21_strncat_test_4
+char test_str1[100] = "";
+char test_str2[100] = "";
+char test_str3[] = "";
+char test_str4[] = "";
+s21_size_t n = 7;
+ck_assert_str_eq(s21_strncat(test_str1, test_str3, n), test_str4);
+ck_assert_str_eq(test_str1, strncat(test_str2, test_str3, n));
+ck_assert_int_eq(s21_strlen(test_str1), strlen(test_str2));
+
+#test s21_strncat_test_5
+char test_str1[100] = "This is ";
+char test_str2[100] = "This is ";
+char test_str3[] = "SPARTA!";
+char test_str4[] = "This is ";
+s21_size_t n = 0;
+ck_assert_str_eq(s21_strncat(test_str1, test_str3, n), test_str4);
+ck_assert_str_eq(test_str1, strncat(test_str2, test_str3, n));
+ck_assert_int_eq(s21_strlen(test_str1), strlen(test_str2));
+
+#test s21_strncat_test_6
+char test_str1[100] = "This is ";
+char test_str2[100] = "This is ";
+char test_str3[] = "SPARTA!";
+char test_str4[] = "This is SPARTA!";
+s21_size_t n = 20;
+ck_assert_str_eq(s21_strncat(test_str1, test_str3, n), test_str4);
+ck_assert_str_eq(test_str1, strncat(test_str2, test_str3, n));
+ck_assert_int_eq(s21_strlen(test_str1), strlen(test_str2));

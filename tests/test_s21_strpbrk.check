@@ -1,0 +1,21 @@
+#suite s21_strpbrk_suite
+
+#test s21_strpbrk_test_1
+char test_str[] = "0123456789";
+char test_sym[] = "9876";
+ck_assert_ptr_eq(strpbrk(test_str, test_sym), s21_strpbrk(test_str, test_sym));
+
+#test s21_strpbrk_test_2
+char test_str[] = "This is a test!";
+char test_sym[] = " ";
+ck_assert_ptr_eq(strpbrk(test_str, test_sym), s21_strpbrk(test_str, test_sym));
+
+#test s21_strpbrk_test_3
+char test_str[] = "This is a test!";
+char test_sym[] = "-";
+ck_assert_ptr_eq(strpbrk(test_str, test_sym), s21_strpbrk(test_str, test_sym));
+
+#test s21_strpbrk_test_4
+char test_str[] = "Th---is is-a test!";
+char test_sym[] = "Th";
+ck_assert_ptr_eq(strpbrk(test_str, test_sym), s21_strpbrk(test_str, test_sym));

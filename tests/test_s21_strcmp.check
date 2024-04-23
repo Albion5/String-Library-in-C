@@ -1,0 +1,29 @@
+#suite s21_strcmp_suite
+
+#test s21_strcmp_test_1
+char test_str1[] =
+    "This is going to be a very long string containing 0123456789, -?!.";
+char test_str2[] =
+    "This is going to be a very long string containing 0123456789, -?!.";
+ck_assert_int_eq(strcmp(test_str1, test_str2),
+                 s21_strcmp(test_str1, test_str2));
+
+#test s21_strcmp_test_2
+char test_str1[] = "A";
+char test_str2[] = "Abc";
+ck_assert_int_lt(s21_strcmp(test_str1, test_str2), 0);
+
+#test s21_strcmp_test_3
+char test_str1[] = "NOT";
+char test_str2[] = "N";
+ck_assert_int_gt(s21_strcmp(test_str1, test_str2), 0);
+
+#test s21_strcmp_test_4
+char test_str1[] = {10, -1, 2, 3};
+char test_str2[] = {-1, 2, 3};
+ck_assert_int_lt(s21_strcmp(test_str1, test_str2), 0);
+
+#test s21_strcmp_test_5
+char test_str1[] = "";
+char test_str2[] = "N";
+ck_assert_int_lt(s21_strcmp(test_str1, test_str2), 0);

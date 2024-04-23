@@ -1,0 +1,74 @@
+#suite s21_sprintf_f_suite
+
+#test s21_sprintf_test_specifier_f_1
+char *format = "%6f %-5f %n %+0Lf %-2Lf %n";
+float test_num1 = -__DBL_MAX__;
+float test_num2 = -0.345667;
+long double test_num3 = 12319345723.456;
+long double test_num4 = 0.345667123123L;
+char test_str1[2048];
+char test_str2[2048];
+int num1, num2, num3, num4;
+int res1 = s21_sprintf(test_str1, format, test_num1, test_num2, &num1,
+                       test_num3, test_num4, &num2);
+// printf("%s\n", test_str1);
+int res2 = sprintf(test_str2, format, test_num1, test_num2, &num3, test_num3,
+                   test_num4, &num4);
+// printf("%s\n", test_str2);
+ck_assert_str_eq(test_str1, test_str2);
+ck_assert_int_eq(num1, num3);
+ck_assert_int_eq(num2, num4);
+ck_assert_int_eq(res1, res2);
+
+#test s21_sprintf_test_specifier_f_2
+char *format = "%6f %-5f %n %+18Lf %-30.10Lf %n";
+float test_num1 = __DBL_MAX__;
+float test_num2 = 1547.345667;
+long double test_num3 = -123123.456L;
+long double test_num4 = 0.0L;
+char test_str1[2048];
+char test_str2[2048];
+int num1, num2, num3, num4;
+int res1 = s21_sprintf(test_str1, format, test_num1, test_num2, &num1,
+                       test_num3, test_num4, &num2);
+// printf("%s\n", test_str1);
+int res2 = sprintf(test_str2, format, test_num1, test_num2, &num3, test_num3,
+                   test_num4, &num4);
+// printf("%s\n", test_str2);
+ck_assert_str_eq(test_str1, test_str2);
+ck_assert_int_eq(num1, num3);
+ck_assert_int_eq(num2, num4);
+ck_assert_int_eq(res1, res2);
+
+#test s21_sprintf_test_specifier_f_3
+char *format = "%06f %-110.f %n %018Lf %-30.10Lf %n";
+float test_num1 = __DBL_MAX__;
+float test_num2 = 1547.345667;
+long double test_num3 = 0.0L;
+long double test_num4 = -14356456.34562;
+char test_str1[2048];
+char test_str2[2048];
+int num1, num2, num3, num4;
+int res1 = s21_sprintf(test_str1, format, test_num1, test_num2, &num1,
+                       test_num3, test_num4, &num2);
+// printf("%s\n", test_str1);
+int res2 = sprintf(test_str2, format, test_num1, test_num2, &num3, test_num3,
+                   test_num4, &num4);
+// printf("%s\n", test_str2);
+ck_assert_str_eq(test_str1, test_str2);
+ck_assert_int_eq(num1, num3);
+ck_assert_int_eq(num2, num4);
+ck_assert_int_eq(res1, res2);
+
+#test s21_sprintf_test_specifier_f_4
+char *format = "%06f %-11.f %n";
+char test_str1[2048];
+char test_str2[2048];
+int num1, num2;
+int res1 = s21_sprintf(test_str1, format, sqrt(-1), log(-1), &num1);
+// printf("%s\n", test_str1);
+int res2 = sprintf(test_str2, format, sqrt(-1), log(-1), &num2);
+// printf("%s\n", test_str2);
+ck_assert_str_eq(test_str1, test_str2);
+ck_assert_int_eq(num1, num2);
+ck_assert_int_eq(res1, res2);

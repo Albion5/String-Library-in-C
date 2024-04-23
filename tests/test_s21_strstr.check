@@ -1,0 +1,32 @@
+#suite s21_strstr_suite
+
+#test s21_strstr_test_1
+char test_str[] = "Hey how are you? you";
+char test_substr[] = "you";
+
+ck_assert_ptr_eq(strstr(test_str, test_substr),
+                 s21_strstr(test_str, test_substr));
+
+#test s21_strstr_test_2
+char test_str[] = "This is a test!";
+char test_substr[] = "?";
+ck_assert_ptr_eq(strstr(test_str, test_substr),
+                 s21_strstr(test_str, test_substr));
+
+#test s21_strstr_test_3
+char test_str[] = "Small string";
+char test_substr[] = "Small string but longer";
+ck_assert_ptr_eq(strstr(test_str, test_substr),
+                 s21_strstr(test_str, test_substr));
+
+#test s21_strstr_test_4
+char test_str[] = "Small string";
+char test_substr[] = "";
+ck_assert_ptr_eq(strstr(test_str, test_substr),
+                 s21_strstr(test_str, test_substr));
+
+#test s21_strstr_test_5
+char test_str[] = "";
+char test_substr[] = "ABC";
+ck_assert_ptr_eq(strstr(test_str, test_substr),
+                 s21_strstr(test_str, test_substr));

@@ -1,0 +1,23 @@
+#suite s21_sprintf_p_suite
+
+#test s21_sprintf_test_specifier_p
+char *format = "%p %20p %p %p %-20p %p %p %n %p %p %p %40p %-20p";
+int num = 56;
+int *p_num = &num;
+char chr = 49;
+char *p_chr = &chr;
+char str[] = "12345";
+double dbl = 234.567L;
+double *p_dbl = &dbl;
+long double ldbl = 234.567L;
+long double *p_ldbl = &ldbl;
+char test_str1[2048];
+char test_str2[2048];
+int num1, num2;
+int res1 = s21_sprintf(test_str1, format, &num, p_num, &chr, p_chr, str, &str,
+                       &dbl, &num1, p_dbl, &ldbl, p_ldbl, NULL, NULL);
+int res2 = sprintf(test_str2, format, &num, p_num, &chr, p_chr, str, &str, &dbl,
+                   &num2, p_dbl, &ldbl, p_ldbl, NULL, NULL);
+ck_assert_str_eq(test_str1, test_str2);
+ck_assert_int_eq(num1, num2);
+ck_assert_int_eq(res1, res2);

@@ -1,0 +1,26 @@
+#suite s21_strrchr_suite
+
+#test s21_strrchr_test_1
+char test_str[] = "Hey how are you? you";
+int sym = 117;
+ck_assert_ptr_eq(strrchr(test_str, sym), s21_strrchr(test_str, sym));
+
+#test s21_strrchr_test_2
+char test_str[] = "This is a test!";
+int sym = ' ';
+ck_assert_ptr_eq(strrchr(test_str, sym), s21_strrchr(test_str, sym));
+
+#test s21_strrchr_test_3
+char test_str[] = "Small string";
+int sym = 110 + 255;
+ck_assert_ptr_eq(strrchr(test_str, sym), s21_strrchr(test_str, sym));
+
+#test s21_strrchr_test_4
+char test_str[] = "Small string";
+int sym = 0;
+ck_assert_ptr_eq(strrchr(test_str, sym), s21_strrchr(test_str, sym));
+
+#test s21_strrchr_test_5
+char test_str[] = "";
+int sym = 103;
+ck_assert_ptr_eq(strrchr(test_str, sym), s21_strrchr(test_str, sym));

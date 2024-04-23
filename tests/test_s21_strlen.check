@@ -1,0 +1,19 @@
+#suite s21_strlen_suite
+
+#test s21_strlen_test_1
+char test_str[] =
+    "This is going to be a very long string containing 0123456789, -?!.";
+
+ck_assert_uint_eq(strlen(test_str), s21_strlen(test_str));
+
+#test s21_strlen_test_2
+char test_str[] = "A";
+ck_assert_uint_eq(strlen(test_str), s21_strlen(test_str));
+
+#test s21_strlen_test_3
+char test_str[] = "NOT0VERY LONG";
+ck_assert_uint_eq(strlen(test_str), s21_strlen(test_str));
+
+#test s21_strlen_test_4
+char test_str[] = "";
+ck_assert_uint_eq(strlen(test_str), s21_strlen(test_str));

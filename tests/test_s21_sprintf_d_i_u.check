@@ -1,0 +1,56 @@
+#suite s21_sprintf_d_i_u_suite
+
+#test s21_sprintf_test_specifier_d_i
+char *format =
+    "%10.5d %-05.10hi %- 5.15ld %n %*.*i % -4.1hd %04.*i %n %05.*d %0+hd %+-li";
+char test_str1[2048];
+char test_str2[2048];
+int num1, num2, num3, num4;
+int res1 =
+    s21_sprintf(test_str1, format, 10, -15466645, +6231564, &num1, 4, 5, 23434,
+                -65, 3, 13254646645, &num2, 0, 2213, 11111111111, 45);
+int res2 = sprintf(test_str2, format, 10, -15466645, +6231564, &num3, 4, 5,
+                   23434, -65, 3, 13254646645, &num4, 0, 2213, 11111111111, 45);
+ck_assert_str_eq(test_str1, test_str2);
+ck_assert_int_eq(num1, num3);
+ck_assert_int_eq(num2, num4);
+ck_assert_int_eq(res1, res2);
+
+#test s21_sprintf_test_specifier_u
+char *format =
+    "%10.5d %-05.10hu %-5.15lu %n %0u %-4.1hu %-9.u %n %-7.0u %0hu %-0lu";
+char test_str1[2048];
+char test_str2[2048];
+int num1, num2, num3, num4;
+int res1 = s21_sprintf(test_str1, format, 10, -15466645, +6231564, &num1, 23434,
+                       -65, 13254646645, &num2, 2213, 11111111111, 45);
+int res2 = sprintf(test_str2, format, 10, -15466645, +6231564, &num3, 23434,
+                   -65, 13254646645, &num4, 2213, 11111111111, 45);
+ck_assert_str_eq(test_str1, test_str2);
+ck_assert_int_eq(num1, num3);
+ck_assert_int_eq(num2, num4);
+ck_assert_int_eq(res1, res2);
+
+#test s21_sprintf_test_specifier_d_i_u
+char *format =
+    "%10.5d %-05.10hu %-5.15li %n %0u %-4.1hd %-9.u %n %7.0u %0hu %-0lu";
+char test_str1[2048];
+char test_str2[2048];
+int num1, num2, num3, num4;
+int res1 = s21_sprintf(test_str1, format, 0, -15466645, +0, &num1, 23434, -65,
+                       13254646645, &num2, 0, 11111111111, 45);
+int res2 = sprintf(test_str2, format, 0, -15466645, +0, &num3, 23434, -65,
+                   13254646645, &num4, 0, 11111111111, 45);
+ck_assert_str_eq(test_str1, test_str2);
+ck_assert_int_eq(num1, num3);
+ck_assert_int_eq(num2, num4);
+ck_assert_int_eq(res1, res2);
+
+#test s21_sprintf_test_specifier_d_i_u_2
+char *format = "%d %i %u";
+char test_str1[2048];
+char test_str2[2048];
+int res1 = s21_sprintf(test_str1, format, 0, 0, 0);
+int res2 = sprintf(test_str2, format, 0, 0, 0);
+ck_assert_str_eq(test_str1, test_str2);
+ck_assert_int_eq(res1, res2);

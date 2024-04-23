@@ -1,0 +1,185 @@
+#suite s21_sscanf_floats_suite
+
+// [%f] / [%g] / [%G] / [%e] / [%E] //
+
+#test s21_sscanf_floats_1
+float a1 = 0, a2 = 0, b1 = 0, b2 = 0;
+
+const char str[] = "0. . ";
+const char fstr[] = "%f %f";
+
+int res1 = s21_sscanf(str, fstr, &a1, &b1);
+// printf("%f %f\n", a1, b1);
+int res2 = sscanf(str, fstr, &a2, &b2);
+
+ck_assert_int_eq(res1, res2);
+ck_assert_double_eq(a1, a2);
+ck_assert_double_eq(b1, b2);
+
+#test s21_sscanf_floats_2
+long double a1 = 0, a2 = 0;
+int n1 = 123, n2 = 124;
+
+const char str[] = "513.41 -4.14135 414.3333 +112.0001";
+const char fstr[] = "%*f %*f %*f %Lf %n";
+
+int res1 = s21_sscanf(str, fstr, &a1, &n1);
+int res2 = sscanf(str, fstr, &a2, &n2);
+
+ck_assert_int_eq(res1, res2);
+ck_assert_double_eq(a1, a2);
+ck_assert_int_eq(n1, n2);
+
+#test s21_sscanf_floats_3
+float a1 = 0, a2 = 0, b1 = 0, b2 = 0, c1 = 0, c2 = 0;
+
+const char str[] = "53.1 -4.1135 411231.333 +2.0001";
+const char fstr[] = "%*f %f %f %f";
+
+int res1 = s21_sscanf(str, fstr, &a1, &b1, &c1);
+int res2 = sscanf(str, fstr, &a2, &b2, &c2);
+
+ck_assert_int_eq(res1, res2);
+ck_assert_float_eq(a1, a2);
+ck_assert_float_eq(b1, b2);
+ck_assert_float_eq(c1, c2);
+
+#test s21_sscanf_floats_4
+float a1 = 0, a2 = 0;
+const char str[] = "-";
+const char fstr[] = "%f";
+
+int res1 = s21_sscanf(str, fstr, &a1);
+int res2 = sscanf(str, fstr, &a2);
+
+ck_assert_int_eq(res1, res2);
+ck_assert_float_eq(a1, a2);
+
+#test s21_sscanf_floats_inf_nan_1
+float a1 = 0, a2 = 0, b1 = 0, b2 = 0, c1 = 0, c2 = 0, d1 = 0, d2 = 0;
+
+const char str[] = "-1e+18 1.31e+4 NaN 0.444e-5";
+const char fstr[] = "%E %G %g %G";
+
+int res1 = s21_sscanf(str, fstr, &a1, &b1, &c1, &d1);
+int res2 = sscanf(str, fstr, &a2, &b2, &c2, &d2);
+
+ck_assert_int_eq(res1, res2);
+ck_assert_double_eq(a1, a2);
+ck_assert_double_eq(b1, b2);
+ck_assert_float_nan(c1);
+ck_assert_float_nan(c2);
+ck_assert_double_eq(d1, d2);
+
+#test s21_sscanf_floats_inf_nan_2
+float a1 = 0, a2 = 0, b1 = 0, b2 = 0, c1 = 0, c2 = 0, d1 = 0, d2 = 0;
+
+const char str[] = "inf:INfinity--0.999-+3e-6";
+const char fstr[] = "%g:%g-%G-%G";
+
+int res1 = s21_sscanf(str, fstr, &a1, &b1, &c1, &d1);
+int res2 = sscanf(str, fstr, &a2, &b2, &c2, &d2);
+
+ck_assert_int_eq(res1, res2);
+ck_assert_ldouble_eq(a1, a2);
+ck_assert_ldouble_eq(b1, b2);
+ck_assert_double_eq(c1, c2);
+ck_assert_double_eq(d1, d2);
+
+#test s21_sscanf_floats_inf_nan_3
+float a1 = 0, a2 = 0, b1 = 0, b2 = 0, c1 = 0, c2 = 0, d1 = 0, d2 = 0;
+
+const char str[] = "nanNAN\t-0.0\t0";
+const char fstr[] = "%G %G %G %G";
+
+int res1 = s21_sscanf(str, fstr, &a1, &b1, &c1, &d1);
+int res2 = sscanf(str, fstr, &a2, &b2, &c2, &d2);
+
+ck_assert_int_eq(res1, res2);
+ck_assert_float_nan(a1);
+ck_assert_float_nan(a2);
+ck_assert_float_nan(b1);
+ck_assert_float_nan(b2);
+ck_assert_ldouble_eq(c1, c2);
+ck_assert_ldouble_eq(d1, d2);
+
+#test s21_sscanf_floats_len_1
+char format[] = "%%%f";
+char str[] = "%12.34567";
+float f1 = 0, f2 = 0;
+int res1 = s21_sscanf(str, format, &f1);
+int res2 = sscanf(str, format, &f2);
+
+ck_assert_int_eq(res1, res2);
+ck_assert_float_eq(f1, f2);
+
+#test s21_sscanf_floats_len_2
+char format[] = "%%%lf";
+char str[] = "%12.34567";
+double d1 = 0, d2 = 0;
+int res1 = s21_sscanf(str, format, &d1);
+int res2 = sscanf(str, format, &d2);
+
+ck_assert_double_eq(d1, d2);
+ck_assert_int_eq(res1, res2);
+
+#test s21_sscanf_floats_len_3
+char format[] = "%%%Lf%%%Lf";
+char str[] =
+    "%-12.34567020297654959%-"
+    "19502285125096974860202976549594398724180239944301483062441531008977267136"
+    "09013030397828640261329800797420159101801613476402327600937901161313172717"
+    "568.000000";
+long double d1 = 0, d2 = 0, d3 = 0, d4 = 0;
+int res1 = s21_sscanf(str, format, &d1, &d3);
+int res2 = sscanf(str, format, &d2, &d4);
+
+ck_assert_ldouble_eq(d1, d2);
+ck_assert_ldouble_eq(d3, d4);
+ck_assert_int_eq(res1, res2);
+
+#test s21_sscanf_floats_len_4
+long double a1 = 1, a2 = 0, b1 = 1, b2 = 0, c1 = 1, c2 = 0, d1 = 1, d2 = 0;
+
+const char str[] = "245.1 -7.1835 1.3333 +2.0091";
+const char fstr[] = "%Lg %LE %Le %Lf";
+
+int res1 = s21_sscanf(str, fstr, &a1, &b1, &c1, &d1);
+int res2 = sscanf(str, fstr, &a2, &b2, &c2, &d2);
+
+ck_assert_int_eq(res1, res2);
+ck_assert_double_eq(a1, a2);
+ck_assert_double_eq(b1, b2);
+ck_assert_double_eq(c1, c2);
+ck_assert_double_eq(d1, d2);
+
+#test s21_sscanf_floats_len_5
+
+double a1 = 0, a2 = 0, b1 = 0, b2 = 0, c1 = 0, c2 = 0;
+
+const char str[] = "4.0.00001 -4123123 ";
+const char fstr[] = "%2lf %lf %lf";
+
+int res1 = s21_sscanf(str, fstr, &a1, &b1, &c1);
+int res2 = sscanf(str, fstr, &a2, &b2, &c2);
+
+ck_assert_int_eq(res1, res2);
+ck_assert_double_eq(a1, a2);
+ck_assert_double_eq(b1, b2);
+ck_assert_double_eq(c1, c2);
+
+#test s21_sscanf_floats_width_1
+
+double a1 = 0, a2 = 0, b1 = 0, b2 = 0, c1 = 0, c2 = 0, d1 = 0, d2 = 0;
+
+const char str[] = "4.0\t8.00001 -4123123 ";
+const char fstr[] = "%20lf %5lf %2lf %lf";
+
+int res1 = s21_sscanf(str, fstr, &a1, &b1, &c1, &d1);
+int res2 = sscanf(str, fstr, &a2, &b2, &c2, &d2);
+
+ck_assert_int_eq(res1, res2);
+ck_assert_double_eq(a1, a2);
+ck_assert_double_eq(b1, b2);
+ck_assert_double_eq(c1, c2);
+ck_assert_double_eq(d1, d2);

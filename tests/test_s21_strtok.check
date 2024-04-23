@@ -1,0 +1,60 @@
+#suite s21_strtok_suite
+
+#test s21_strtok_test_1
+char test_str[] = "     'hi;;;there;';how'are you'''";
+char test_str1[] = "     'hi;;;there;';how'are you'''";
+char test_del[] = "; '";
+char* token = strtok(test_str, test_del);
+char* token1 = s21_strtok(test_str1, test_del);
+while (token != s21_NULL) {
+  ck_assert_str_eq(token, token1);
+  token = strtok(s21_NULL, test_del);
+  token1 = s21_strtok(s21_NULL, test_del);
+}
+ck_assert_ptr_eq(token, token1);
+
+#test s21_strtok_test_2
+char test_str[] = "This is a test!";
+char test_str1[] = "This is a test!";
+char test_del[] = " ";
+char* token = strtok(test_str, test_del);
+char* token1 = s21_strtok(test_str1, test_del);
+while (token != s21_NULL) {
+  ck_assert_str_eq(token, token1);
+  token = strtok(s21_NULL, test_del);
+  token1 = s21_strtok(s21_NULL, test_del);
+}
+ck_assert_ptr_eq(token, token1);
+
+#test s21_strtok_test_3
+char test_str[] = "This is a test!";
+char test_str1[] = "This is a test!";
+char test_del[] = "-";
+ck_assert_str_eq(strtok(test_str, test_del), s21_strtok(test_str1, test_del));
+ck_assert_ptr_eq(strtok(s21_NULL, test_del), s21_strtok(s21_NULL, test_del));
+
+#test s21_strtok_test_4
+char test_str[] = "---Th---is is-a test!";
+char test_str1[] = "---Th---is is-a test!";
+char test_del[] = "-";
+char* token = strtok(test_str, test_del);
+char* token1 = s21_strtok(test_str1, test_del);
+while (token != s21_NULL) {
+  ck_assert_str_eq(token, token1);
+  token = strtok(s21_NULL, test_del);
+  token1 = s21_strtok(s21_NULL, test_del);
+}
+ck_assert_ptr_eq(token, token1);
+
+#test s21_strtok_test_5
+char test_str[] = "Geeks-for-Geeks";
+char test_str1[] = "Geeks-for-Geeks";
+char test_del[] = " - ";
+char* token = strtok(test_str, test_del);
+char* token1 = s21_strtok(test_str1, test_del);
+while (token != s21_NULL) {
+  ck_assert_str_eq(token, token1);
+  token = strtok(s21_NULL, test_del);
+  token1 = s21_strtok(s21_NULL, test_del);
+}
+ck_assert_ptr_eq(token, token1);

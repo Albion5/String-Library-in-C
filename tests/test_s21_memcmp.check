@@ -1,0 +1,56 @@
+#suite s21_memcmp_suite
+
+#test s21_memcmp_test_1
+char test_str1[] = "abcdefg";
+char test_str2[] = "abcdefg";
+int n = 5;
+ck_assert((memcmp(test_str1, test_str2, n) > 0 &&
+           s21_memcmp(test_str1, test_str2, n) > 0) ||
+          (memcmp(test_str1, test_str2, n) == 0 &&
+           s21_memcmp(test_str1, test_str2, n) == 0) ||
+          (memcmp(test_str1, test_str2, n) < 0 &&
+           s21_memcmp(test_str1, test_str2, n) < 0));
+
+#test s21_memcmp_test_2
+char test_str1[] = "abcdefg";
+char test_str2[] = "abcdefg";
+int n = 8;
+ck_assert((memcmp(test_str1, test_str2, n) > 0 &&
+           s21_memcmp(test_str1, test_str2, n) > 0) ||
+          (memcmp(test_str1, test_str2, n) == 0 &&
+           s21_memcmp(test_str1, test_str2, n) == 0) ||
+          (memcmp(test_str1, test_str2, n) < 0 &&
+           s21_memcmp(test_str1, test_str2, n) < 0));
+
+#test s21_memcmp_test_3
+char test_str1[] = "abcfefg";
+char test_str2[] = "abcdefg";
+int n = 6;
+ck_assert((memcmp(test_str1, test_str2, n) > 0 &&
+           s21_memcmp(test_str1, test_str2, n) > 0) ||
+          (memcmp(test_str1, test_str2, n) == 0 &&
+           s21_memcmp(test_str1, test_str2, n) == 0) ||
+          (memcmp(test_str1, test_str2, n) < 0 &&
+           s21_memcmp(test_str1, test_str2, n) < 0));
+
+#test s21_memcmp_test_4
+char test_str1[] = "abcdefo";
+char test_str2[] = "abcdefg";
+int n = 5;
+ck_assert((memcmp(test_str1, test_str2, n) > 0 &&
+           s21_memcmp(test_str1, test_str2, n) > 0) ||
+          (memcmp(test_str1, test_str2, n) == 0 &&
+           s21_memcmp(test_str1, test_str2, n) == 0) ||
+          (memcmp(test_str1, test_str2, n) < 0 &&
+           s21_memcmp(test_str1, test_str2, n) < 0));
+
+#test s21_memcmp_test_5
+char test_str1[] = "bbcdefg";
+char test_str2[] = "abcdefg";
+int n = 5;
+ck_assert((memcmp(test_str1, test_str2, n) > 0 &&
+           s21_memcmp(test_str1, test_str2, n) > 0) ||
+          (memcmp(test_str1, test_str2, n) == 0 &&
+           s21_memcmp(test_str1, test_str2, n) == 0) ||
+          (memcmp(test_str1, test_str2, n) < 0 &&
+           s21_memcmp(test_str1, test_str2, n) < 0));

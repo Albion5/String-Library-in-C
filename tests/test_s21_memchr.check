@@ -1,0 +1,29 @@
+#suite s21_memchr_suite
+
+#test s21_memchr_test_1
+char test_str[] = "abcdefg";
+char test_chr = 'd';
+int n = 10;
+ck_assert_ptr_eq(memchr(test_str, test_chr, n),
+                 s21_memchr(test_str, test_chr, n));
+
+#test s21_memchr_test_2
+char test_str[] = "abcdefg";
+char test_chr = 'd';
+int n = 3;
+ck_assert_ptr_eq(memchr(test_str, test_chr, n),
+                 s21_memchr(test_str, test_chr, n));
+
+#test s21_memchr_test_3
+char test_str[] = "abcdefg";
+char test_chr = '!';
+int n = 10;
+ck_assert_ptr_eq(memchr(test_str, test_chr, n),
+                 s21_memchr(test_str, test_chr, n));
+
+#test s21_memchr_test_4
+char test_str[] = "abcdefg";
+char test_chr = '!';
+int n = 5;
+ck_assert_ptr_eq(memchr(test_str, test_chr, n),
+                 s21_memchr(test_str, test_chr, n));

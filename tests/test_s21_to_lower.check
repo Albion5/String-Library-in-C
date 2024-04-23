@@ -1,0 +1,41 @@
+#suite s21_to_lower_suite
+
+#test s21_to_lower_test_1
+char test_str[100] = "tHIS IS GOING tO BE a VERY ";
+char test_exp_res[] = "this is going to be a very ";
+char *test_fact_res = s21_to_lower(test_str);
+ck_assert_str_eq(test_exp_res, test_fact_res);
+if (test_fact_res) {
+  free(test_fact_res);
+}
+
+#test s21_to_lower_test_2
+char test_str[100] = "123456789";
+char *test_fact_res = s21_to_lower(test_str);
+ck_assert_str_eq(test_str, test_fact_res);
+if (test_fact_res) {
+  free(test_fact_res);
+}
+
+#test s21_to_lower_test_3
+char test_str[100] = "";
+char *test_fact_res = s21_to_lower(test_str);
+ck_assert_str_eq(test_str, test_fact_res);
+if (test_fact_res) {
+  free(test_fact_res);
+}
+
+#test s21_to_lower_test_4
+char *test_fact_res = s21_to_lower(s21_NULL);
+ck_assert_ptr_eq(s21_NULL, test_fact_res);
+if (test_fact_res) {
+  free(test_fact_res);
+}
+
+#test s21_to_lower_test_5
+char test_str[100] = "only lowercase letters";
+char *test_fact_res = s21_to_lower(test_str);
+ck_assert_str_eq(test_str, test_fact_res);
+if (test_fact_res) {
+  free(test_fact_res);
+}

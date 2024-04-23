@@ -1,0 +1,43 @@
+#suite s21_sprintf_o_suite
+
+#test s21_sprintf_test_specifier_o_1
+char *format = "%#20o %-#10o %o %n %#20o %-#10o %o";
+long test_num = 0;
+char test_str1[2048];
+char test_str2[2048];
+int num1, num2;
+int res1 = s21_sprintf(test_str1, format, test_num, test_num, test_num, &num1,
+                       test_num, test_num, test_num);
+int res2 = sprintf(test_str2, format, test_num, test_num, test_num, &num2,
+                   test_num, test_num, test_num);
+ck_assert_str_eq(test_str1, test_str2);
+ck_assert_int_eq(num1, num2);
+ck_assert_int_eq(res1, res2);
+
+#test s21_sprintf_test_specifier_o_2
+char *format = "%-#.5o  %04.15o %n %#20o %-o";
+long test_num = 156;
+char test_str1[2048];
+char test_str2[2048];
+int num1, num2;
+int res1 = s21_sprintf(test_str1, format, test_num, test_num, &num1, test_num,
+                       test_num);
+int res2 =
+    sprintf(test_str2, format, test_num, test_num, &num2, test_num, test_num);
+ck_assert_str_eq(test_str1, test_str2);
+ck_assert_int_eq(num1, num2);
+ck_assert_int_eq(res1, res2);
+
+#test s21_sprintf_test_specifier_o_3
+char *format = "%#.5o  %0-#4.15o %n %#20.80o %0100o";
+long test_num = 15632465768679;
+char test_str1[2048];
+char test_str2[2048];
+int num1, num2;
+int res1 = s21_sprintf(test_str1, format, test_num, test_num, &num1, test_num,
+                       test_num);
+int res2 =
+    sprintf(test_str2, format, test_num, test_num, &num2, test_num, test_num);
+ck_assert_str_eq(test_str1, test_str2);
+ck_assert_int_eq(num1, num2);
+ck_assert_int_eq(res1, res2);

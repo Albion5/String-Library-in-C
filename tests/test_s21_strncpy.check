@@ -1,0 +1,51 @@
+#suite s21_strncpy_suite
+
+#test s21_strncpy_test_1
+char test_str[100] = "1111111111";
+char test_source[] = "12345\0006789";
+char test_exp_res[] = "1234511111";
+s21_size_t n = 5;
+char *test_fact_res = s21_strncpy(test_str, test_source, n);
+ck_assert_str_eq(test_fact_res, test_exp_res);
+ck_assert_ptr_eq(test_fact_res, test_str);
+
+#test s21_strncpy_test_2
+char test_str[100] = "1111111111";
+char test_source[] = "12345\0006789";
+s21_size_t n = 0;
+char *test_fact_res = s21_strncpy(test_str, test_source, n);
+ck_assert_str_eq(test_fact_res, test_str);
+ck_assert_ptr_eq(test_fact_res, test_str);
+
+#test s21_strncpy_test_3
+char test_str[100] = "1111111111";
+char test_source[] = "12345\0006789";
+s21_size_t n = 12;
+char *test_fact_res = s21_strncpy(test_str, test_source, n);
+ck_assert_str_eq(test_fact_res, test_source);
+ck_assert_ptr_eq(test_fact_res, test_str);
+
+#test s21_strncpy_test_4
+char test_str[100] = "111111";
+char test_source[] = "str";
+s21_size_t n = 6;
+char *test_fact_res = s21_strncpy(test_str, test_source, n);
+ck_assert_str_eq(test_fact_res, test_source);
+ck_assert_ptr_eq(test_fact_res, test_str);
+
+#test s21_strncpy_test_5
+char test_str[100] = "111111";
+char test_source[] = "";
+s21_size_t n = 6;
+char *test_fact_res = s21_strncpy(test_str, test_source, n);
+ck_assert_str_eq(test_fact_res, test_source);
+ck_assert_ptr_eq(test_fact_res, test_str);
+
+#test s21_strncpy_test_6
+char test_str[100] = "Small sentence.";
+char test_source[] = "Longer sentence with more words.";
+char test_exp_res[] = "Longer sentence";
+s21_size_t n = 15;
+char *test_fact_res = s21_strncpy(test_str, test_source, n);
+ck_assert_str_eq(test_fact_res, test_exp_res);
+ck_assert_ptr_eq(test_fact_res, test_str);

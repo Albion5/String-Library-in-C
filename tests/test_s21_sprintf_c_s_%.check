@@ -1,0 +1,50 @@
+#suite s21_sprintf_c_s_percent_suite
+
+#test s21_sprintf_test_wrong_specifier
+char test_str[2048];
+int res1 = s21_sprintf(test_str, "%h10..0f");
+int res2 = s21_sprintf(test_str, "%+- 0#5*.2d", 5);
+int res3 = s21_sprintf(test_str, "%*+01.5s");
+int res4 = s21_sprintf(test_str, "%+10.*5x", 10);
+ck_assert_int_eq(res1, -1);
+ck_assert_int_eq(res2, -1);
+ck_assert_int_eq(res3, -1);
+ck_assert_int_eq(res4, -1);
+
+#test s21_sprintf_test_specifier_c
+char *format = "%6c %-5c %n %c %-4c %n";
+char test_str1[2048];
+char test_str2[2048];
+int num1, num2, num3, num4;
+int res1 = s21_sprintf(test_str1, format, 'A', 'B', &num1, 0, 127, &num2);
+int res2 = sprintf(test_str2, format, 'A', 'B', &num3, 0, 127, &num4);
+ck_assert_str_eq(test_str1, test_str2);
+ck_assert_int_eq(num1, num3);
+ck_assert_int_eq(num2, num4);
+ck_assert_int_eq(res1, res2);
+
+#test s21_sprintf_test_specifier_s
+char *format = "%6.2s %-6.2s %- 5.15s %n %s % -4.1s %4.2s %n %5.0s";
+char test_str1[2048];
+char test_str2[2048];
+int num1, num2, num3, num4;
+int res1 = s21_sprintf(test_str1, format, "ABC", "ABC", "1234567890", &num1,
+                       "123", "XY", "ZA", &num2, "ABCD");
+int res2 = sprintf(test_str2, format, "ABC", "ABC", "1234567890", &num3, "123",
+                   "XY", "ZA", &num4, "ABCD");
+ck_assert_str_eq(test_str1, test_str2);
+ck_assert_int_eq(num1, num3);
+ck_assert_int_eq(num2, num4);
+ck_assert_int_eq(res1, res2);
+
+#test s21_sprintf_test_specifier_percent
+char *format = "%% %% %n %% %% %n";
+char test_str1[2048];
+char test_str2[2048];
+int num1, num2, num3, num4;
+int res1 = s21_sprintf(test_str1, format, &num1, &num2);
+int res2 = sprintf(test_str2, format, &num3, &num4);
+ck_assert_str_eq(test_str1, test_str2);
+ck_assert_int_eq(num1, num3);
+ck_assert_int_eq(num2, num4);
+ck_assert_int_eq(res1, res2);
